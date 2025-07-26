@@ -136,5 +136,21 @@ Go to browser and type ip:9000 it will ask for  username and password by default
 - NodeJS
 - Prometheus metrics
 
+**10) Create SonarQube token**
 
+- SonarQube Console -> Administrator -> Security -> Users -> Click on  3 bars under Token -> Give Name and Generate
+
+**10.1) Tools Configuration in Jenkins**
+
+- Jenkins -> Manage Jenkins -> Tools -> JDK installations -> Add Jdk -> jdk17 -> Install automatically -> jdk-17.0.8.1+1
+
+- Jenkins -> Manage Jenkins -> Tools -> Git installations -> Add Git
+
+- Jenkins -> Manage Jenkins -> Tools -> SonarQube Scanner installations -> Add SonarQube Scanner -> sonar-scanner -> Install automatically -> Install from Maven Central
+
+- Jenkins -> Manage Jenkins -> Tools -> NodeJS installations -> Add NodeJS -> node23 -> Install automatically ->   
+
+- Jenkins -> Manage Jenkins -> Tools -> Dependency-Check installations -> Add Dependency-Check -> DP-Check -> Install automatically
+
+- Jenkins -> Manage Jenkins -> Tools -> Docker installations -> Add Docker -> docker -> Install automatically -> Download from docker.com -> latest
 

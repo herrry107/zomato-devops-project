@@ -96,8 +96,35 @@ sudo systemctl start docker
 sudo systemctl status docker
 </code></pre>
 
+**6) Install trivy on Ubuntu**
+<pre><code>
+sudo apt-get install wget apt-transport-https gnupg lsb-release
+wget -qO - https://aquasecurity.github.io/trivy-repo/deb/public.key | sudo apt-key add -
+echo deb https://aquasecurity.github.io/trivy-repo/deb $(lsb_release -sc) main | sudo tee -a /etc/apt/sources.list.d/trivy.list
+sudo apt-get update
+sudo apt-get install trivy
+</code></pre>
+
+<pre><code>
+#check trivy installed or not
+trivy --version
+</code></pre>
+
+**7) Install Docker Scout**
+
+Make  sure to Login to DockerHub account
+<pre><code>docker login -u user-name</code></pre>
+<pre><code>
+curl -fsSL https://raw.githubusercontent.com/docker/scout-cli/main/install.sh -o install-scout.sh
+sh install-scout.sh
+</code></pre>
+<pre><code>sudo chmod 777 /var/run/docker.sock</code></pre>
+
+**8) Install SonaQube using Docker**
+<pre><code>docker  run -d --name sonar -p 9000:9000 sonarqube:lts-community</code></pre>
+
+Go to browser and type ip:9000 it will ask for  username and password by default both are 'admin'
 
 
-  
 
 

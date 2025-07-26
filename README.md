@@ -125,6 +125,16 @@ sh install-scout.sh
 
 Go to browser and type ip:9000 it will ask for  username and password by default both are 'admin'
 
+**9) Install required Plugin into Jenkins**
+
+- Pipeline Stage View  (show pipeline stages)
+- Eclipse Temurin installer (when work with different version of java)
+- SonarQube Scanner
+- Docker,Docker Commons,Docker Pipeline,Docker API,docker-build-step
+- Email Extension Template
+- OWASP Dependency-CheckVersion
+- NodeJS
+- Prometheus metrics
 
 
 

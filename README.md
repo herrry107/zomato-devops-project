@@ -154,3 +154,5 @@ Go to browser and type ip:9000 it will ask for  username and password by default
 
 - Jenkins -> Manage Jenkins -> Tools -> Docker installations -> Add Docker -> docker -> Install automatically -> Download from docker.com -> latest
 
+**10.2) Add SolarQube Credentials in Jenkins**
+Manage Jenkins ->  Credentials ->  System -> Global credentials (unrestricted) -> Secret text

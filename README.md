@@ -219,3 +219,11 @@ Extended E-mail Notification configure for notification
 **11.2) Default triggers for email in Jenkins/Manage/System (remove app password spaces)**
 
 ![E-mail Notification](https://github.com/herrry107/zomato-devops-project/blob/main/images/notification-default-triggers.png)
+
+**11.3) Create sonarqube-webhooks**'
+
+Go to sonarqube -> Administrator -> Configurations  -> Webhooks
+
+![sonarqube-webhooks](https://github.com/herrry107/zomato-devops-project/blob/main/images/sonarqube-webhook1.png)
+
+![sonarqube-webhooks](https://github.com/herrry107/zomato-devops-project/blob/main/images/sonarqube-webhook2.png)

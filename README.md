@@ -177,4 +177,23 @@ Go to browser and type ip:9000 it will ask for  username and password by default
 - 
 
 **10.2) Add SolarQube Credentials in Jenkins**
-Manage Jenkins ->  Credentials ->  System -> Global credentials (unrestricted) -> Secret text
+
+Manage Jenkins ->  Credentials ->  global-> Add Credentials -> Kind (Secret text) -> secret (token) -> id (any-name)
+
+![SolarQube-Credential](https://github.com/herrry107/zomato-devops-project/blob/main/images/jenkins-sonar-token-secret-credentials.png)
+
+**10.3) Add Dockerhub Credentials in Jenkins**
+
+Manage Jenkins ->  Credentials ->  global-> Add Credentials -> Kind (Username with Password) -> Username (dockerhub-id) -> Password (dockerhub-password) -> id (any-name)
+
+![Docker-Credentials](https://github.com/herrry107/zomato-devops-project/blob/main/images/docker-login-credentials.png)
+
+**10.4) Add Email to get Notification of Success and Failure**
+
+Go to App Password in Security and generate password and save in jenkins credentials
+
+![Gmail-App-Password](https://github.com/herrry107/zomato-devops-project/blob/main/images/gmail-app-password.png)
+
+Manage Jenkins ->  Credentials ->  global-> Add Credentials -> Kind (Username with Password) -> Username (gmail address) -> Password (App-password) -> id (email-creds)
+
+![Gmail-App-Password](https://github.com/herrry107/zomato-devops-project/blob/main/images/docker-sonarqube-both-credentials.png)

@@ -190,10 +190,32 @@ Manage Jenkins ->  Credentials ->  global-> Add Credentials -> Kind (Username wi
 
 **10.4) Add Email to get Notification of Success and Failure**
 
-Go to App Password in Security and generate password and save in jenkins credentials
+Go to App Password in Security and generate password and save in jenkins credentials (in jenkins credentials remove app password spaces like if password is "ab cd" than "abcd")
 
 ![Gmail-App-Password](https://github.com/herrry107/zomato-devops-project/blob/main/images/gmail-app-password.png)
 
 Manage Jenkins ->  Credentials ->  global-> Add Credentials -> Kind (Username with Password) -> Username (gmail address) -> Password (App-password) -> id (email-creds)
 
 ![Gmail-App-Password](https://github.com/herrry107/zomato-devops-project/blob/main/images/docker-sonarqube-both-credentials.png)
+
+**11) SonarQube Configure in Jenkins/Manage/System**
+
+Go to Jenkins -> Manage Jenkins -> System -> SonarQube Servers 
+
+![SonarQube-Server-Configure](https://github.com/herrry107/zomato-devops-project/blob/main/images/sonarqube-configure-in-jenkins-system.png)
+
+**11.1) Extended E-mail Notification in Jenkins/Manage/System**
+
+Extended E-mail Notification configure for notification 
+
+![Extended E-mail Notification](https://github.com/herrry107/zomato-devops-project/blob/main/images/Extended-email-notification.png)
+
+**11.2) E-mail Notification in Jenkins/Manage/System (remove app password spaces)**
+
+![E-mail Notification](https://github.com/herrry107/zomato-devops-project/blob/main/images/e-mail-notification1.png)
+
+![E-mail Notification](https://github.com/herrry107/zomato-devops-project/blob/main/images/e-mail-notification2.png)
+
+**11.2) Default triggers for email in Jenkins/Manage/System (remove app password spaces)**
+
+![E-mail Notification](https://github.com/herrry107/zomato-devops-project/blob/main/images/notification-default-triggers.png)

@@ -12,6 +12,8 @@
 - Custom TCP 9000 AnyWhereIPv4 --> **SonarQube**
 - Custom TCP 9100 AnyWhereIPv4 --> **Node Export Port (If Grafana and Prometheus need to work, the Node Exporter should push  the CPU, Memory usage and other details, so is why we have opened 9100 Port)**
 
+![All-Ports](https://github.com/herrry107/zomato-devops-project/blob/main/images/all_ports.png)
+
 **2) Connect and Update Command in Zomato-Server Instance**
 <pre><code>
 #switch user to root
@@ -114,6 +116,9 @@ trivy --version
 
 Make  sure to Login to DockerHub account
 <pre><code>docker login -u user-name</code></pre>
+
+![docker-login](https://github.com/herrry107/zomato-devops-project/blob/main/images/docker-login.png)
+
 <pre><code>
 curl -fsSL https://raw.githubusercontent.com/docker/scout-cli/main/install.sh -o install-scout.sh
 sh install-scout.sh
@@ -136,23 +141,40 @@ Go to browser and type ip:9000 it will ask for  username and password by default
 - NodeJS
 - Prometheus metrics
 
+![Jenkins-Plugin](https://github.com/herrry107/zomato-devops-project/blob/main/images/jenkins-plugin.png)
+
 **10) Create SonarQube token**
 
 - SonarQube Console -> Administrator -> Security -> Users -> Click on  3 bars under Token -> Give Name and Generate
+
+![SonarQube-Token](https://github.com/herrry107/zomato-devops-project/blob/main/images/sonarqube-toke-generate.png)
+
+![SonarQube-Token](https://github.com/herrry107/zomato-devops-project/blob/main/images/sonarqube-toke-generate1.png)
 
 **10.1) Tools Configuration in Jenkins**
 
 - Jenkins -> Manage Jenkins -> Tools -> JDK installations -> Add Jdk -> jdk17 -> Install automatically -> jdk-17.0.8.1+1
 
+![JDK-Configure](https://github.com/herrry107/zomato-devops-project/blob/main/images/jenkins-tools-jdk.png)
+
 - Jenkins -> Manage Jenkins -> Tools -> Git installations -> Add Git
+
+![Git-Configure](https://github.com/herrry107/zomato-devops-project/blob/main/images/jenkins-tools-git.png)
 
 - Jenkins -> Manage Jenkins -> Tools -> SonarQube Scanner installations -> Add SonarQube Scanner -> sonar-scanner -> Install automatically -> Install from Maven Central
 
-- Jenkins -> Manage Jenkins -> Tools -> NodeJS installations -> Add NodeJS -> node23 -> Install automatically ->   
+![SonarQube-Configure](https://github.com/herrry107/zomato-devops-project/blob/main/images/jenkins-tools-sonarqube.png)
+
+- Jenkins -> Manage Jenkins -> Tools -> NodeJS installations -> Add NodeJS -> node23 -> Install automatically -> Install from nodejs.org
+
+![NodeJS-Configure](https://github.com/herrry107/zomato-devops-project/blob/main/images/jenkins-tools-nodejs.png)
 
 - Jenkins -> Manage Jenkins -> Tools -> Dependency-Check installations -> Add Dependency-Check -> DP-Check -> Install automatically
 
+![Dependency-Check-Configure](https://github.com/herrry107/zomato-devops-project/blob/main/images/jenkins-tools-DP-Check.png)
+
 - Jenkins -> Manage Jenkins -> Tools -> Docker installations -> Add Docker -> docker -> Install automatically -> Download from docker.com -> latest
+- 
 
 **10.2) Add SolarQube Credentials in Jenkins**
 Manage Jenkins ->  Credentials ->  System -> Global credentials (unrestricted) -> Secret text

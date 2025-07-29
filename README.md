@@ -366,7 +366,7 @@ We will install Grafana, Prometheus, Node Exporter in the above instance and the
 First Create a dedicated Linux user for Prometheus and download Prometheus
 <pre><code>sudo useradd --system --no-create-home --shell /bin/false prometheus</code></pre>
 
-now download and extract prometheus
+**now download and extract prometheus**
 <pre><code>wget https://github.com/prometheus/prometheus/releases/download/v3.5.0/prometheus-3.5.0.linux-amd64.tar.gz</code></pre>
 <pre><code>tar -xvf prometheus-3.5.0.linux-amd64.tar.gz</code></pre>
 <pre><code>
@@ -428,3 +428,51 @@ enable and start prometheus
 Now Promwtheus in browser using your server's IP and port 9090: http://<your-server-ip>:9090 (if doesn't work remove http)
 
 Click on 'Status' dropdown -> Click on 'Targets' -> You can see 'Prometheus (1/1) up'
+
+![Prometheus](https://github.com/herrry107/zomato-devops-project/blob/main/images/prometheus1.png)
+
+add node_exporter user
+<pre><code>
+sudo useradd --system --no-create-home --shell /bin/false node_exporter
+</code></pre>
+
+**now download and extract prometheus node exporter**
+<pre><code>
+wget https://github.com/prometheus/node_exporter/releases/download/v1.9.1/node_exporter-1.9.1.linux-amd64.tar.gz
+</code></pre>
+
+**Extract Node Exporter files, move the binary, and clean up
+<pre><code>tar -xvf node_exporter-1.9.1.linux-amd64.tar.gz</code></pre>
+<pre><code>sudo mv node_exporter-1.9.1.linux-amd64/node_exporter /usr/local/bin/</code></pre>
+<pre><code>rm -rf node*</code></pre>
+
+create a systemd unit configuration file for Node Exporter
+<pre><code>sudo vi /etc/systemd/system/node_exporter.service</code></pre>
+<pre><code>
+[Unit]
+Description=Node Exporter
+Wants=network-online.target
+After=network-online.target
+
+StartLimitIntervalsec=500
+StartLimitBurst=5
+
+[Service]
+User=node_exporter
+Group=node_exporter
+Type=simple
+ExecStart=/usr/local/bin/node_exporter --collector.logind
+Restart=on-failure
+RestartSec=5s
+
+[Install]
+WantedBy=multi-user.target
+</code></pre>
+
+Note: Replace --collector.logind with any additional flags as needed.
+
+Enable and Start node exporter
+<pre><code>sudo systemctl enable node_exporter</code></pre>
+<pre><code>sudo systemctl start node_exporter</code></pre>
+
+

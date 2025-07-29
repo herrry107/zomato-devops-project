@@ -356,3 +356,75 @@ sudo systemctl restart jenkins
 </code></pre>
 
 build now
+
+# Monitoring of Application
+
+**1) Launch an Instance with name Monitoring-Server (Ubuntu 24.04, t2.large,30GB)**
+
+We will install Grafana, Prometheus, Node Exporter in the above instance and then we will monitor
+
+First Create a dedicated Linux user for Prometheus and download Prometheus
+<pre><code>sudo useradd --system --no-create-home --shell /bin/false prometheus</code></pre>
+
+now download and extract prometheus
+<pre><code>wget https://github.com/prometheus/prometheus/releases/download/v3.5.0/prometheus-3.5.0.linux-amd64.tar.gz</code></pre>
+<pre><code>tar -xvf prometheus-3.5.0.linux-amd64.tar.gz</code></pre>
+<pre><code>
+cd prometheus-3.5.0.linux-amd64
+sudo mkdir -p /data /etc/prometheus
+sudo mv prometheus promtool /usr/local/bin/
+sudo mv prometheus.yml /etc/prometheus/prometheus.yml
+</code></pre>
+
+set ownership of directory
+<pre><code>
+sudo chown -R prometheus:prometheus /etc/prometheus/ /data/
+</code></pre>
+
+Create a systemd unit configuration file for Prometheus:
+<pre><code>sudo vi /etc/systemd/system/prometheus.service</code></pre>
+
+Add the following content to the prometheus.service file:
+<pre><code>
+[Unit]
+Description=Prometheus
+Wants=network-onlline.target
+After=network-online.target
+
+StartLimitIntervalsec=500
+StartLimitBurst=5
+
+[Service]
+User=prometheus
+Group=prometheus
+Type=simple
+ExecStart=/usr/local/bin/prometheus \
+    --config.file=/etc/prometheus/prometheus.yml \
+    --storage.tsdb.path=/data \
+    --web.listen-address=0.0.0.0:9090 \
+    --web.enable-lifecycle
+
+Restart=on-failure
+RestartSec=5s
+
+[Install]
+WantedBy=multi-user.target
+</code></pre>
+
+Here's a brief explanation of the key parts in this prometheus.service file:
+
+User and Group specify the Linux user and group under which Prometheus will run.
+
+ExecStart is where you specify the Prometheus binary path, the location of the configuration file (prometheus.yml), the storage directory, and other settings.
+
+web.listen-address configures Prometheus to listen on all network interfaces on port 9090.
+
+web.enable-lifecycle allows for management of Prometheus through API calls.
+
+enable and start prometheus
+<pre><code>sudo systemctl enable prometheus</code></pre>
+<pre><code>sudo systemctl start prometheus</code></pre>
+
+Now Promwtheus in browser using your server's IP and port 9090: http://<your-server-ip>:9090 (if doesn't work remove http)
+
+Click on 'Status' dropdown -> Click on 'Targets' -> You can see 'Prometheus (1/1) up'

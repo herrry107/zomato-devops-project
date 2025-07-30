@@ -475,4 +475,40 @@ Enable and Start node exporter
 <pre><code>sudo systemctl enable node_exporter</code></pre>
 <pre><code>sudo systemctl start node_exporter</code></pre>
 
+**2) Configure Prometheus Plugin Integration**
+
+As of now we created Prometheus service, but we need to add a job in order to fetch the details by node exporter. So for that we need to create 2 jobs, one with 'node exporter' and the  other with 'jenkins' as shown below;
+
+Integrate Jenkins with Prometheus to monitor the CI/CD pipeline
+
+Prometheus Configuration:
+
+To  configure Prometheus to scrape metrics from Node Exporter and Jenkins, you need to modify the prometheus.yml file
+
+The path of prometheus.yml
+<pre><code>vi /etc/prometheus/prometheus.yml</code></pre>
+
+add these lines in the end of prometheus.yml
+<pre><code>
+  - job_name: "node_exporter"
+    static_configs:
+      - targets: ["monitoring-ip:9090"]
+  - job_name: "jenkins"
+    metrics_path: "/prometheus"
+    static_configs:
+      - targets: ["jenkins-ip:8080"]
+</code></pre>
+
+Check the validity of the configuration file
+<pre><code>promtool check config /etc/prometheus/prometheus.yml</code></pre>
+
+You should see "SUCCESS" when you run the above command
+
+Reload the Prometheus configuration without restarting:
+<pre><code>curl -X POST http://localhost:9090/-/reload</code></pre>
+
+Access Prometheus in browser or refresh page
+http://<prometheus-ip>:9090/targets
+
+
 

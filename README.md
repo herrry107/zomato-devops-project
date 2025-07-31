@@ -541,7 +541,7 @@ Add Grafana Repository
 
 now go to browser and type 
 
-<monitoring-server-ip>:3000 // username: admin, password: admin
+monitoring-server-ip:3000 // username: admin, password: admin
 
 You  will see **Grafana Dashboard**
 

@@ -510,5 +510,43 @@ Reload the Prometheus configuration without restarting:
 Access Prometheus in browser or refresh page
 http://<prometheus-ip>:9090/targets
 
+![Prometheus](https://github.com/herrry107/zomato-devops-project/blob/main/images/prometheus_dashboard.png)
 
+You can see 'Prometheus (1/1) up',  'node exporter(1/1) up','Jenkins (1/1 up)'
 
+# Install Grafana
+
+Install Grafana in monitoring server
+
+**1) Install  Dependencies**
+
+<pre><code>sudo apt-get update</code></pre>
+<pre><code>sudo apt-get install -y apt-transport-https software-properties-common</code></pre>
+
+Add the GPG Key:
+<pre><code>wget -q -O - https://packages.grafana.com/gpg.key | sudo apt-key add -</code></pre>
+
+You should see OK when executed the above command
+
+Add Grafana Repository
+<pre><code> echo "deb https://packages.grafana.com/oss/deb stable main" | sudo tee -a /etc/apt/sources.list.d/grafana.list</code></pre>
+
+**Update and Install Grafana**
+<pre><code>sudo apt-get update</code></pre>
+<pre><code>apt-get -y install grafana</code></pre>
+
+**Enable and Start Grafana**
+<pre><code>sudo systemctl enable grafana-server</code></pre>
+<pre><code>sudo systemctl start grafana-server</code></pre>
+
+now go to browser and type 
+
+<monitoring-server-ip>:3000 // username: admin, password: admin
+
+You  will see **Grafana Dashboard**
+
+The first thing that we have to do in Grafana is to add the data source Lets add the data source;
+
+![Grafana-Data-Source](https://github.com/herrry107/zomato-devops-project/blob/main/images/grafana_data_source.png)
+
+![Grafana-Data-Source](https://github.com/herrry107/zomato-devops-project/blob/main/images/grafana_data_source1.png)

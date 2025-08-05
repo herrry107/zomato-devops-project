@@ -550,3 +550,38 @@ The first thing that we have to do in Grafana is to add the data source Lets add
 ![Grafana-Data-Source](https://github.com/herrry107/zomato-devops-project/blob/main/images/grafana_data_source.png)
 
 ![Grafana-Data-Source](https://github.com/herrry107/zomato-devops-project/blob/main/images/grafana_data_source1.png)
+
+# Grafana Dashboard
+
+**Node Exporter Dashboard for Prometheus**
+
+click new dashboard and import 
+
+![Grafana-Node-Exporter-Dashboard](https://github.com/herrry107/zomato-devops-project/blob/main/images/grafana-import-dashboard.png)
+
+type id for node-exporter which is 1860 and click on Load
+
+![Grafana-Node-Exporter-Dashboard](https://github.com/herrry107/zomato-devops-project/blob/main/images/grafana-import-dashboard1.png)
+
+click on select a prometheus data source -> Prometheus -> import
+
+![Grafana-Node-Exporter-Dashboard](https://github.com/herrry107/zomato-devops-project/blob/main/images/grafana-import-dashboard2.png)
+
+![Grafana-Node-Exporter-Dashboard](https://github.com/herrry107/zomato-devops-project/blob/main/images/grafana-node-exporter-dashboard.png)
+
+now same import for jenkins
+
+**Jenkins Dashboard for Prometheus**
+
+click new dashboard and import 
+
+type id for jenkins which is 19964 and click on Load
+
+![Grafana-Data-Source](https://github.com/herrry107/zomato-devops-project/blob/main/images/grafana-import-jenkins-dashboard.png)
+
+click on select a prometheus data source -> Prometheus -> import
+
+![Grafana-Data-Source](https://github.com/herrry107/zomato-devops-project/blob/main/images/grafana-import-jenkins-dashboard1.png)
+
+![Grafana-Data-Source](https://github.com/herrry107/zomato-devops-project/blob/main/images/grafana-jenkins-dashboard.png)
+

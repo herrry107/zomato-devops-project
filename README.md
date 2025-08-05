@@ -575,7 +575,7 @@ now same import for jenkins
 
 click new dashboard and import 
 
-type id for jenkins which is 19964 and click on Load
+type id for jenkins which is 9964 and click on Load
 
 ![Grafana-Data-Source](https://github.com/herrry107/zomato-devops-project/blob/main/images/grafana-import-jenkins-dashboard.png)
 
@@ -585,3 +585,10 @@ click on select a prometheus data source -> Prometheus -> import
 
 ![Grafana-Data-Source](https://github.com/herrry107/zomato-devops-project/blob/main/images/grafana-jenkins-dashboard.png)
 
+# Creation EKS Cluster 
+
+We need to run same application on K8S cluster. In order to do that we need to create K8S cluster. I will create the cluster using EKS service in AWS using VS code editor.
+
+**Prerequirements: AWSCLI, KUBECTL, EKSCTL**
+
+[Install awscli,kubectl,eksctl](https://github.com/herrry107/Kubernetes/blob/main/eks-project1/prerequisites.md)

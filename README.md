@@ -1,4 +1,4 @@
-<img width="1069" height="929" alt="image" src="https://github.com/user-attachments/assets/7f6818ff-06ee-4053-95ff-56b6df6f6437" /># Full Devops Project with Zomato Clone
+# Full Devops Project with Zomato Clone
 
 **1) Launch an Instance with name Zomato-Server (Ubuntu 24.04, t2.large,30GB)**
 
@@ -615,10 +615,10 @@ To enable and use AWS IAM roles for Kubernetes service accounts on our EKS clust
 ![EKS-OIDC](https://github.com/herrry107/zomato-devops-project/blob/main/images/eksctl-iam-oidc-attach.png)
 
 create Node Group with additional Add-Ons in Public Subnets, These add-ons will create the respective IAM policies for us automatically within our Node Group role.
-<pre><code>eksctl create nodegroup --cluster pratikcluster --name pratik-ng-public1 --region ap-south-1 --node-type t3.medium  --nodes 2 --nodes-min 1  --nodes-max 2 --node-volume-size=20 --ssh-access --ssh-public-key ubuntu --managed --asg-access --external-dns-access --full-ecr-access --appmesh-access --alb-ingress-access</code></pre>
+<pre><code>eksctl create nodegroup --cluster pratikcluster --name pratik-ng-public --region ap-south-1 --node-type t3.medium  --nodes 2 --nodes-min 1  --nodes-max 2 --node-volume-size=20 --ssh-access --ssh-public-key ubuntu --managed --asg-access --external-dns-access --full-ecr-access --appmesh-access --alb-ingress-access</code></pre>
 
 if need to delete  nodegroup
-<pre><code>eksctl delete nodegroup --cluster pratikcluster --name pratik-ng-public1 --region ap-south-1</code></pre>
+<pre><code>eksctl delete nodegroup --cluster pratikcluster --name pratik-ng-public --region ap-south-1</code></pre>
 
 if need to delete cluster
 <pre><code>eksctl delete cluster pratikcluster</code></pre>
@@ -714,5 +714,42 @@ NOTE: In the repo, in Kubernetes folder, in the deployment.yml file, in the cont
 
 Add a Job to Scrape Metrics on nodeip:9001/metrics in prometheus.yml
 
- 
+Update your Prometheus configuration (prometheus.yml) to add a new job for scrapping metrics from nodeip:9001/metrics. You can do this by adding following configuration to your prometheus.yml file.
+
+Go to the monitoring server
+
+Goto EkS in AWS -> Click on EKS cluster -> Compute tab -> Nodes -> Click on any node -> instance id -> copy the public ip
+
+Go to file sudo vi /etc/prometheus/prometheus.yml
+
+<pre><code>
+  - job_name: "k8s"
+    metrics_path: "/metrics"
+    static_configs:
+      - targets: ["nodeIP:9100"]
+</code></pre>
+
+node ip is we copied from EKS node
+
+check syntax is  correct or not
+<pre><code>promtool check config /etc/prometheus/prometheus.yml</code></pre>
+<pre><code>curl -X POST http://localhost:9090/-/reload</code></pre>
+
+allow 9100 and 30001 in security group of custer nodegroup
+
+![Grafana-argocd](https://github.com/herrry107/zomato-devops-project/blob/main/images/k8s-prometheus.png)
+
+Goto Prometheus and reload. Goto ArgoCD and reload to see whether the pipeline is done or not
+
+![Grafana-argocd](https://github.com/herrry107/zomato-devops-project/blob/main/images/argocd10.png)
+
+copy the public ip of "nodeip" and paste in browser with :30001 port no our application is running.
+
+after all thing please delete nodegroup and cluster also.
+
+if need to delete  nodegroup
+<pre><code>eksctl delete nodegroup --cluster pratikcluster --name pratik-ng-public1 --region ap-south-1</code></pre>
+
+if need to delete cluster
+<pre><code>eksctl delete cluster pratikcluster</code></pre>
 

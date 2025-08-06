@@ -1,4 +1,4 @@
-# Full Devops Project with Zomato Clone
+<img width="1069" height="929" alt="image" src="https://github.com/user-attachments/assets/7f6818ff-06ee-4053-95ff-56b6df6f6437" /># Full Devops Project with Zomato Clone
 
 **1) Launch an Instance with name Zomato-Server (Ubuntu 24.04, t2.large,30GB)**
 
@@ -592,3 +592,127 @@ We need to run same application on K8S cluster. In order to do that we need to c
 **Prerequirements: AWSCLI, KUBECTL, EKSCTL**
 
 [Install awscli,kubectl,eksctl](https://github.com/herrry107/Kubernetes/blob/main/eks-project1/prerequisites.md)
+
+<pre><code>aws configure</code></pre>
+
+**create eks cluster without node-group**
+
+<pre><code>eksctl create cluster --name=pratikcluster --region=ap-south-1 --zones=ap-south-1a,ap-south-1b --without-nodegroup</code></pre>
+
+![EKS-Cluster](https://github.com/herrry107/zomato-devops-project/blob/main/images/eksctl-create-cluster.png)
+
+it will take atleast 20 minutes
+
+get list of cluster
+<pre><code>eksctl get cluster</code></pre>
+
+**Create & Associate IAM OIDC Provider for our EKS Cluster**
+
+To enable and use AWS IAM roles for Kubernetes service accounts on our EKS cluster, we must create & associate OIDC identity provider. To do so using eksctl we can use the below commands.
+
+<pre><code>eksctl utils associate-iam-oidc-provider --region=ap-south-1 --cluster pratikcluster --approve</code></pre>
+
+![EKS-OIDC](https://github.com/herrry107/zomato-devops-project/blob/main/images/eksctl-iam-oidc-attach.png)
+
+create Node Group with additional Add-Ons in Public Subnets, These add-ons will create the respective IAM policies for us automatically within our Node Group role.
+<pre><code>eksctl create nodegroup --cluster pratikcluster --name pratik-ng-public1 --region ap-south-1 --node-type t3.medium  --nodes 2 --nodes-min 1  --nodes-max 2 --node-volume-size=20 --ssh-access --ssh-public-key ubuntu --managed --asg-access --external-dns-access --full-ecr-access --appmesh-access --alb-ingress-access</code></pre>
+
+if need to delete  nodegroup
+<pre><code>eksctl delete nodegroup --cluster pratikcluster --name pratik-ng-public1 --region ap-south-1</code></pre>
+
+if need to delete cluster
+<pre><code>eksctl delete cluster pratikcluster</code></pre>
+
+Lets us deploy the same application in the EKS cluster also
+
+To check the nodes creation, go to EKS Service in aws -> Click on the Cluster created -> 'Compute' tab -> Refresh the page if you don't see the node group (1 node group should be seen). Before doing this, make sure in vs code editor the nodes and node groups are created or not.
+
+You can also see the node creation in vs editor by executing -> kubectl get nodes -> You can see 2 nodes.
+
+# Argo CD installation
+
+Inorder to monitor k8s with Prometheus, we need to install ArgoCD. Lets do that Execute the below commands
+
+<pre><code>kubectl create namespace argocd</code></pre>
+<pre><code>kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/v2.4.7/manifests/install.yaml</code></pre>
+
+wait for sometime till the namespace gets created.
+The above command will create a namespace with "argocd" name
+
+By default the argo CD server is not publicly exposed, so we need to expose it publicly. To do that, execute the below command
+<pre><code>kubectl patch svc argocd-server -n argocd -p '{"spec":{"type":"LoadBalancer"}}'</code></pre>
+
+After successful execution you should see "patched"
+
+<pre><code>kubectl get pod -n argocd</code></pre>
+
+![EKS-pods](https://github.com/herrry107/zomato-devops-project/blob/main/images/kubectl-argocd-get-pods.png)
+
+wait for 5 minute for the load balancer creation. Once the loadbalancer is created, we will get the load balancer url.
+
+# Monitor Kubernetes with Prometheus
+
+Used to monitor Kubernetes cluster
+Additionally, you'll install the node exporter using Helm to collect metrics from your cluster nodes.
+
+Install Node Exporter using Helm
+
+To begin monitoring your Kubernetes cluster, you'll need install the Prometheus Node Exporter. This component allows you to collect system-level metrics from your cluster nodes. Here are the steps to install the Node Exporter using Helm:
+
+Add the Prometheus Community Helm repository:
+<pre><code>helm repo add prometheus-community https://prometheus-community.github.io/helm-charts</code></pre>
+
+Create a Kubernetes namespace for the Node Exporter
+<pre><code>kubectl create namespace prometheus-node-exporter</code></pre>
+
+Install the Node Exporter using Helm
+<pre><code>helm install prometheus-node-exporter prometheus-community/prometheus-node-exporter --namespace prometheus-node-exporter</code></pre>
+
+Lets continue with load balancer thing of previous step;
+<pre><code>export ARGOCD_SERVER=`kubectl get svc argocd-server -n argocd -o json | jq --raw-output '.status.loadBalancer.ingress[0].hostname'`</code></pre>
+
+To get the loadbalancer url
+<pre><code>echo $ARGOCD_SERVER</code></pre>
+
+same command in windows: **echo $env:ARGOCD_SERVER**
+
+copy that url and hit into browser click on advance -> safe and continue -> You will see argoCD
+
+username: admin
+
+for password we need to execute command
+<pre><code>export ARGO_PWD=`kubectl -n argocd get secret argocd-initial-admin-secret -o jsonpath="{.data.password}" | base64 -d`</code></pre>
+<pre><code>echo $ARGO_PWD</code></pre>
+
+![Grafana-argocd](https://github.com/herrry107/zomato-devops-project/blob/main/images/argocd.png)
+
+![Grafana-argocd](https://github.com/herrry107/zomato-devops-project/blob/main/images/argocd1.png)
+
+In the ArgoCD homepage, in the left pane, click on "Manage your repos, projects, settings" icon -> Click on "Repositories" -> Click on "Connect repo using HTTPS" -> Type: git, Project: default, Repo URL: Github-Url-Of-ZomatoProject -> Click on "Connect" (Top bar, left side) -> You can see "connection status " as "successful"
+
+![Grafana-argocd](https://github.com/herrry107/zomato-devops-project/blob/main/images/argocd2.png)
+
+![Grafana-argocd](https://github.com/herrry107/zomato-devops-project/blob/main/images/argocd3.png)
+
+![Grafana-argocd](https://github.com/herrry107/zomato-devops-project/blob/main/images/argocd4.png)
+
+![Grafana-argocd](https://github.com/herrry107/zomato-devops-project/blob/main/images/argocd5.png)
+
+In the ArgoCD homepage, in the left pane, click on "Manage your apps, and diagnose health problems" -> Click on "New App" -> App Name: zomato, Project Name: default, Sync Policy: Automatic, Repo URL:  Github-Url-Of-ZomatoProject , Revision: HEAD, Path: Give-the-name-of-kubernetes-folder-in-zomato-repo, Cluster URL: select-the-one-from-drop-down-menu, Namespace: default -> Create -> wait till you see the status to completed (it will take 5-10 minutes)
+
+![Grafana-argocd](https://github.com/herrry107/zomato-devops-project/blob/main/images/argocd1.png)
+
+![Grafana-argocd](https://github.com/herrry107/zomato-devops-project/blob/main/images/argocd6.png)
+
+![Grafana-argocd](https://github.com/herrry107/zomato-devops-project/blob/main/images/argocd7.png)
+
+![Grafana-argocd](https://github.com/herrry107/zomato-devops-project/blob/main/images/argocd8.png)
+
+![Grafana-argocd](https://github.com/herrry107/zomato-devops-project/blob/main/images/argocd9.png)
+
+NOTE: In the repo, in Kubernetes folder, in the deployment.yml file, in the container section  cange the dockerhub username
+
+Add a Job to Scrape Metrics on nodeip:9001/metrics in prometheus.yml
+
+ 
+

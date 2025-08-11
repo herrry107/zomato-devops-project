@@ -2,6 +2,8 @@
 
 ![All-Ports](https://github.com/herrry107/zomato-devops-project/blob/main/images/pipeline-all-stages.png)
 
+![Grafana-Node-Exporter-Dashboard](https://github.com/herrry107/zomato-devops-project/blob/main/images/grafana-node-exporter-dashboard.png)
+
 **1) Launch an Instance with name Zomato-Server (Ubuntu 24.04, t2.large,30GB)**
 
 1.1) Open the below Port No
@@ -20,7 +22,7 @@
 <pre><code>
 #switch user to root
 sudo su</code></pre>
-<pre><code>apt update -yM</code></pre>
+<pre><code>apt update -y</code></pre>
 
 **3) Install AWS CLI**
 <pre><code>

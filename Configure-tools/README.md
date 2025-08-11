@@ -1,4 +1,4 @@
-#Tools Configuration
+# Tools Configuration
 
 **Create SonarQube token**
 
@@ -55,29 +55,29 @@ Manage Jenkins ->  Credentials ->  global-> Add Credentials -> Kind (Username wi
 
 ![Gmail-App-Password](https://github.com/herrry107/zomato-devops-project/blob/main/images/docker-sonarqube-both-credentials.png)
 
-**11) SonarQube Configure in Jenkins/Manage/System**
+# SonarQube Configure in Jenkins/Manage/System
 
 Go to Jenkins -> Manage Jenkins -> System -> SonarQube Servers 
 
 ![SonarQube-Server-Configure](https://github.com/herrry107/zomato-devops-project/blob/main/images/sonarqube-configure-in-jenkins-system.png)
 
-**11.1) Extended E-mail Notification in Jenkins/Manage/System**
+# Extended E-mail Notification in Jenkins/Manage/System
 
 Extended E-mail Notification configure for notification 
 
 ![Extended E-mail Notification](https://github.com/herrry107/zomato-devops-project/blob/main/images/Extended-email-notification.png)
 
-**11.2) E-mail Notification in Jenkins/Manage/System (remove app password spaces)**
+# E-mail Notification in Jenkins/Manage/System (remove app password spaces)
 
 ![E-mail Notification](https://github.com/herrry107/zomato-devops-project/blob/main/images/e-mail-notification1.png)
 
 ![E-mail Notification](https://github.com/herrry107/zomato-devops-project/blob/main/images/e-mail-notification2.png)
 
-**11.2) Default triggers for email in Jenkins/Manage/System (remove app password spaces)**
+# Default triggers for email in Jenkins/Manage/System (remove app password spaces)
 
 ![E-mail Notification](https://github.com/herrry107/zomato-devops-project/blob/main/images/notification-default-triggers.png)
 
-**11.3) Create sonarqube-webhooks**'
+# Create sonarqube-webhooks
 
 Go to sonarqube -> Administrator -> Configurations  -> Webhooks
 
@@ -85,7 +85,7 @@ Go to sonarqube -> Administrator -> Configurations  -> Webhooks
 
 ![sonarqube-webhooks](https://github.com/herrry107/zomato-devops-project/blob/main/images/sonarqube-webhook2.png)
 
-**12) Build Pipeline**
+# Build Pipeline
 
 New Item -> Pipeline
 <pre><code>

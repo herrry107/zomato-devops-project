@@ -1,5 +1,7 @@
 # Full Devops Project with Zomato Clone
 
+![All-Ports](https://github.com/herrry107/zomato-devops-project/blob/main/images/pipeline-all-stages.png)
+
 **1) Launch an Instance with name Zomato-Server (Ubuntu 24.04, t2.large,30GB)**
 
 1.1) Open the below Port No
